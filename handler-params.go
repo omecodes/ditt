@@ -51,7 +51,7 @@ func (h handlerParamsValidator) GetUserList(ctx context.Context, opts ListOption
 		return nil, BadInput
 	}
 
-	if opts.Count > DefaultUserListCount {
+	if opts.Count == 0 || opts.Count > DefaultUserListCount {
 		opts.Count = DefaultUserListCount
 	}
 
