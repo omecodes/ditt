@@ -216,6 +216,14 @@ func NewMongoUserDataStore(uri string) (UserDataStore, error) {
 
 	db := session.DB(databaseName)
 	col := db.C(collectionName)
+	err = col.EnsureIndex(mgo.Index{
+		Key:      []string{"id"},
+		Unique:   true,
+		DropDups: true,
+	})
+	if !mgo.IsDup(err) {
+		return nil, err
+	}
 
 	return &mongoDataStore{
 		session:         session,
