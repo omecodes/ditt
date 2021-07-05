@@ -129,7 +129,6 @@ func (m *mongoDataStore) Save(data UserData) error {
 	var doc interface{}
 	err := bson.UnmarshalJSON([]byte(data), &doc)
 	if err != nil {
-		log.Println("mongo decoding:", err)
 		return BadInput
 	}
 
@@ -138,14 +137,12 @@ func (m *mongoDataStore) Save(data UserData) error {
 		log.Println("mongo save:", err)
 		return Internal
 	}
-
 	return nil
 }
 
 func (m *mongoDataStore) Delete(id string) error {
-	err := m.usersCollection.Remove(bson.M{"userId": id})
+	err := m.usersCollection.Remove(bson.M{"id": id})
 	if err != nil {
-		log.Println("delete user data:", err)
 		if err == mgo.ErrNotFound {
 			return NotFound
 		}
@@ -156,9 +153,8 @@ func (m *mongoDataStore) Delete(id string) error {
 
 func (m *mongoDataStore) Get(id string) (UserData, error) {
 	var result interface{}
-	err := m.usersCollection.Find(bson.M{"userId": id}).One(&result)
+	err := m.usersCollection.Find(bson.M{"id": id}).One(&result)
 	if err != nil {
-		log.Println("get user data:", err)
 		if err == mgo.ErrNotFound {
 			return "", NotFound
 		}

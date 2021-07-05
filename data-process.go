@@ -74,11 +74,11 @@ func (r ConcurrentUserDataProcessingRunner) Run() {
 var writeProcessors = []UserDataProcessor{
 	UserDataProcessorFunc(saveDataIntoFile),
 	UserDataProcessorFunc(hashPassword),
-	UserDataProcessorFunc(transformUserId),
+	// UserDataProcessorFunc(transformUserId),
 }
 
 var readProcessors = []UserDataProcessor{
-	UserDataProcessorFunc(removeUserId),
+	// UserDataProcessorFunc(removeUserId),
 	UserDataProcessorFunc(mergeWithDataFromFile),
 }
 
@@ -120,7 +120,7 @@ func saveDataIntoFile(data UserData) (UserData, error) {
 	return UserData(updateData), err
 }
 
-func transformUserId(data UserData) (UserData, error) {
+/* func transformUserId(data UserData) (UserData, error) {
 	if data == "" {
 		return data, nil
 	}
@@ -128,7 +128,7 @@ func transformUserId(data UserData) (UserData, error) {
 	id := data.Id()
 	updateData, err := sjson.Set(string(data), "userId", id)
 	return UserData(updateData), err
-}
+}*/
 
 func mergeWithDataFromFile(data UserData) (UserData, error) {
 	if data == "" {
@@ -147,7 +147,7 @@ func mergeWithDataFromFile(data UserData) (UserData, error) {
 	return data, nil
 }
 
-func removeUserId(data UserData) (UserData, error) {
+/* func removeUserId(data UserData) (UserData, error) {
 
 	if data == "" {
 		return data, nil
@@ -155,4 +155,4 @@ func removeUserId(data UserData) (UserData, error) {
 
 	updateData, err := sjson.Delete(string(data), "userId")
 	return UserData(updateData), err
-}
+} */
