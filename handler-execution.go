@@ -95,21 +95,11 @@ func (e *handlerExecution) GetUserList(ctx context.Context, opts ListOptions) (*
 	runResultChannelSignal := make(chan chan error)
 	defer close(runResultChannelSignal)
 
-	provider := func(callback UserDataCallback) error {
-		userId := GetLoggedUser(ctx)
-		var err error
-		if userId == "admin" {
-			err = Env.DataStore.List(opts.Offset, opts.Count, callback)
-		} else {
-			err = Env.DataStore.ListForUser(userId, opts.Offset, opts.Count, callback)
-		}
-		return err
-	}
 	processor := func(data UserData) (UserData, error) {
 		return processData(readProcessors, data)
 	}
 	runner := ConcurrentUserDataProcessingRunner{
-		Provider:            provider,
+		Provider:            e.getUserDataListProviderFunc(GetLoggedUser(ctx), opts),
 		Processor:           UserDataProcessorFunc(processor),
 		TasksResultsSignals: tasksResultsChannelSignal,
 		ResultSignal:        runResultChannelSignal,
@@ -135,9 +125,19 @@ func (e *handlerExecution) GetUserList(ctx context.Context, opts ListOptions) (*
 
 	runResult := <-runResultChannelSignal
 	err := <-runResult
-
-	log.Println("done listing:", err)
 	return userDataList, err
+}
+
+func (e *handlerExecution) getUserDataListProviderFunc(userId string, opts ListOptions) UserDataProvider {
+	return func(callback UserDataCallback) error {
+		var err error
+		if userId == "admin" {
+			err = Env.DataStore.List(opts.Offset, opts.Count, callback)
+		} else {
+			err = Env.DataStore.ListForUser(userId, opts.Offset, opts.Count, callback)
+		}
+		return err
+	}
 }
 
 func (e *handlerExecution) loadFileContent(data UserData, wg *sync.WaitGroup, processed chan<- UserData, failures chan<- error) {
