@@ -24,6 +24,10 @@ func (f UserDataProcessorFunc) ProcessData(data UserData) (UserData, error) {
 	return f(data)
 }
 
+const (
+	tasksResultPublishingQueueSize = 10
+)
+
 // UserDataProcessingResult holds info about UserData processing result
 type UserDataProcessingResult struct {
 	Err    error
@@ -41,7 +45,7 @@ type ConcurrentUserDataProcessingRunner struct {
 }
 
 func (r ConcurrentUserDataProcessingRunner) dispatch() error {
-	results := make(chan UserDataProcessingResult, 1)
+	results := make(chan UserDataProcessingResult, tasksResultPublishingQueueSize)
 	defer close(results)
 
 	wg := &sync.WaitGroup{}
