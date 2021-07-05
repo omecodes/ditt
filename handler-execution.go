@@ -20,7 +20,7 @@ func (e *handlerExecution) Login(ctx context.Context, login string, password str
 	userData, err := e.GetUser(ctx, login)
 	if err != nil {
 		if err == NotFound {
-			return false, NotAuthorized
+			return false, nil
 		}
 		return false, err
 	}
