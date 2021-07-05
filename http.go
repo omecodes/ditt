@@ -1,7 +1,6 @@
 package ditt
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
@@ -208,17 +207,16 @@ func HandleHttpGetUserListRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Add("Content-Type", "application/json")
-	writer := bufio.NewWriter(w)
-	_, _ = writer.WriteString(fmt.Sprintf("{\"offset\": %d,", list.Offset))
-	_, _ = writer.WriteString("\"data\": [")
+	_, _ = w.Write([]byte(fmt.Sprintf("{\"offset\": %d,", list.Offset)))
+	_, _ = w.Write([]byte("\"data\": ["))
 	for ind, userData := range list.UserDataList {
 		if ind > 0 {
-			_, _ = writer.WriteString(",")
+			_, _ = w.Write([]byte(","))
 		}
-		_, _ = writer.WriteString(string(userData))
+		_, _ = w.Write([]byte(userData))
 	}
-	_, _ = writer.WriteString("]")
-	_, _ = writer.WriteString("}")
+	_, _ = w.Write([]byte("]"))
+	_, _ = w.Write([]byte("}"))
 }
 
 // HandleHttpUpdateUserRequest initializes an APIHandler and calls its APIHandler.UpdateUser with userId extracted from the request URI path
