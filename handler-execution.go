@@ -119,7 +119,7 @@ func (e *handlerExecution) GetUserList(ctx context.Context, opts ListOptions) (*
 		if result.Err != nil {
 			log.Println("data", result.UserId, ":", result.Err)
 		} else {
-			//userDataList.UserDataList = append(userDataList.UserDataList, result.Data)
+			userDataList.UserDataList = append(userDataList.UserDataList, result.Data)
 		}
 	}
 
