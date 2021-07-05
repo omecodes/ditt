@@ -1,7 +1,6 @@
 package ditt
 
 import (
-	"log"
 	"sync"
 
 	"github.com/tidwall/sjson"
@@ -145,8 +144,6 @@ func mergeWithDataFromFile(data UserData) (UserData, error) {
 		updateData, err := sjson.Set(string(data), "data", content)
 		return UserData(updateData), err
 	}
-
-	log.Println("processed data:", data)
 	return data, nil
 }
 

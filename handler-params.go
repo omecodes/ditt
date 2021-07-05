@@ -3,7 +3,6 @@ package ditt
 import (
 	"context"
 	"io"
-	"log"
 )
 
 type handlerParamsValidator struct {
@@ -55,8 +54,6 @@ func (h handlerParamsValidator) GetUserList(ctx context.Context, opts ListOption
 	if opts.Count > DefaultUserListCount {
 		opts.Count = DefaultUserListCount
 	}
-
-	log.Println("offset", opts.Offset, "count", opts.Count)
 
 	return h.BaseHandler.GetUserList(ctx, opts)
 }

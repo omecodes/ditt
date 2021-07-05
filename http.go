@@ -158,7 +158,6 @@ func HandleHttpGetUserRequest(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userId := vars[endpointVarId]
 
-	log.Println("asking for:", userId)
 	api := NewAPIHandler()
 	user, err := api.GetUser(r.Context(), userId)
 	if err != nil {
