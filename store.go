@@ -221,7 +221,7 @@ func NewMongoUserDataStore(uri string) (UserDataStore, error) {
 		Unique:   true,
 		DropDups: true,
 	})
-	if !mgo.IsDup(err) {
+	if err != nil && !mgo.IsDup(err) {
 		return nil, err
 	}
 
