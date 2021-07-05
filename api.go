@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	DefaultUserListCount = 1
+	DefaultUserListCount = 5
 )
 
 // UserData wraps string for readability
