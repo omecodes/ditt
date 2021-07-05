@@ -124,16 +124,6 @@ func saveDataIntoFile(data UserData) (UserData, error) {
 	return UserData(updateData), err
 }
 
-/* func transformUserId(data UserData) (UserData, error) {
-	if data == "" {
-		return data, nil
-	}
-
-	id := data.Id()
-	updateData, err := sjson.Set(string(data), "userId", id)
-	return UserData(updateData), err
-}*/
-
 func mergeWithDataFromFile(data UserData) (UserData, error) {
 	if data == "" {
 		return data, nil
@@ -150,13 +140,3 @@ func mergeWithDataFromFile(data UserData) (UserData, error) {
 	}
 	return data, nil
 }
-
-/* func removeUserId(data UserData) (UserData, error) {
-
-	if data == "" {
-		return data, nil
-	}
-
-	updateData, err := sjson.Delete(string(data), "userId")
-	return UserData(updateData), err
-} */
