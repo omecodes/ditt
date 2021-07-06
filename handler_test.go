@@ -93,7 +93,7 @@ func TestBaseHandler_Login3(t *testing.T) {
 		handler := NewAPIHandler()
 		ok, err := handler.Login(context.Background(), "bamba", "loki-pass")
 		So(ok, ShouldBeFalse)
-		So(err, ShouldEqual, NotAuthorized)
+		So(err, ShouldBeNil)
 	})
 }
 
