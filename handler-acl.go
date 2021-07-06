@@ -2,7 +2,6 @@ package ditt
 
 import (
 	"context"
-	"io"
 )
 
 type handlerACL struct {
@@ -44,14 +43,13 @@ func (h *handlerACL) Login(ctx context.Context, login string, password string) (
 	return h.BaseHandler.Login(ctx, login, password)
 }
 
-func (h *handlerACL) AddUsers(ctx context.Context, reader io.Reader) error {
+/* func (h *handlerACL) AddUsers(ctx context.Context, reader io.Reader) error {
 	err := h.assertIsAdmin(ctx)
 	if err != nil {
 		return err
 	}
-
 	return h.BaseHandler.AddUsers(ctx, reader)
-}
+} */
 
 func (h *handlerACL) DeleteUser(ctx context.Context, userId string) error {
 	err := h.assertHasAccess(ctx, userId)
