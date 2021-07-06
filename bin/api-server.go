@@ -132,7 +132,7 @@ func setupCookies(configDir string) {
 func setupMongoDB() {
 	store, err := ditt.NewMongoUserDataStore(databaseURI)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln("Mongo", err)
 	}
 	ditt.Env.DataStore = store
 }
