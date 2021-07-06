@@ -26,17 +26,12 @@ Assuming you are in the `bin` folder, run the following command:
 
 ### Database target
 
-By default the program target a mongo database running at localhost. If you want it to connect to another mongo database
-you can specify it this way:
+By default, the program target a mongo database running at localhost. If you want it to connect to another mongo
+database you can specify it this way:
 
 ```
 ./ditt-api-server start --port=8080 --db-uri=<target-db-uri>
 ```
-
-### Authentication
-
-When starting the app, it displays the path of the configuration directory. Inside that directory there is a file
-named `admin-auth` that contains the admin password. Please use this password to login as admin and add users.
 
 ## Comments
 

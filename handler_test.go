@@ -16,7 +16,7 @@ func TestBaseHandler_AddUsers1(t *testing.T) {
 	})
 }
 
-func TestBaseHandler_AddUsers2(t *testing.T) {
+/* func TestBaseHandler_AddUsers2(t *testing.T) {
 	Convey("Calling AddUsers with an unauthenticated context must fail", t, func() {
 		handler := NewAPIHandler()
 		err := handler.AddUsers(context.Background(), bytes.NewBufferString(""))
@@ -31,7 +31,7 @@ func TestBaseHandler_AddUsers3(t *testing.T) {
 		err := handler.AddUsers(authenticatedContext, bytes.NewBufferString(""))
 		So(err, ShouldEqual, Forbidden)
 	})
-}
+} */
 
 func TestBaseHandler_AddUsers4(t *testing.T) {
 	Convey("Calling AddUsers with an admin context and with malformed JSON must fail", t, func() {
