@@ -33,6 +33,11 @@ you can specify it this way:
 ./ditt-api-server start --port=8080 --db-uri=<target-db-uri>
 ```
 
+### Authentication
+
+When starting the app, it displays the path of the configuration directory. Inside that directory there is a file
+named `admin-auth` that contains the admin password. Please use this password to login as admin and add users.
+
 ## Comments
 
 ### Testing
